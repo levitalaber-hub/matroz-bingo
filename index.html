@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matróz Bingó Hell je</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="controls">
+        <label for="meret">Méret:</label>
+        <select id="meret">
+            <option value="3">3 x 3</option>
+            <option value="4">4 x 4</option>
+            <option value="5" selected>5 x 5</option>
+        </select>
+        <button onclick="ujJatek()">Új Játék Indítása</button>
+    </div>
+
+    <div id="jatekater" class="bingo-container"></div>
+
+    <button id="btnBingo" onclick="gyozelem()">BINGÓ!</button>
+
+    <div id="winOverlay" class="win-overlay hidden">
+        <div class="win-message-container">
+             <div class="comic-starburst"></div>
+            <h1 class="win-text">BINGÓ!</h1>
+            <button id="btnRestart" onclick="ujJatek()">Új játék indítása</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

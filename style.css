@@ -1,0 +1,241 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background: radial-gradient(circle at center, #5c5c5c 0%, #1f1f1f 100%);
+    color: #eee;
+    padding: 20px;
+    min-height: 100vh; 
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Vezérlőpanel */
+.controls {
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgb(226, 214, 146);
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: #333;
+    position: relative;
+    z-index: 10;
+}
+
+select, button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.controls button {
+    background-color: #d78100;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.controls button:hover {
+    background-color: #9e4700;
+}
+
+/* A Bingó Rács */
+.bingo-container {
+    display: grid;
+    gap: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+.mezo {
+    background-color: rgb(220, 220, 220);
+    color: #333;
+    border: 2px solid #ccc;
+    min-height: 80px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    border-radius: 5px;
+    word-break: break-word;
+}
+
+.mezo:hover {
+    background-color: rgb(255, 239, 100);
+    border-color: #888;
+}
+
+.kivalasztva {
+    background-color: #ff9e1f !important;
+    color: white;
+    border-color: #7d542e;
+}
+
+.free-space {
+    background-color: #ffe608;
+    border-color: #d8b000;
+    font-style: italic;
+    color: rgb(255, 0, 0);
+}
+
+.free-space.kivalasztva {
+    background-color: #ffc400 !important;
+    color: white;
+}
+
+/* =========================================
+   ÚJ STÍLUS: PIROS OVÁLIS, SÁRGA KERET
+   ========================================= */
+
+/* A fő BINGO gomb stílusa */
+#btnBingo {
+    display: none;
+    margin-top: 40px;
+    
+    /* SZÍNEK: Piros háttér */
+    background-color: #D32F2F; 
+    
+    /* SZÖVEG: Sárga keret (outline) és fehér belső */
+    color: #FFFFFF; 
+    -webkit-text-stroke: 2px #FFEB3B; /* Sárga keret */
+    
+    font-family: 'Arial Black', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    
+    /* Gomb mérete és OVÁLIS alakja */
+    padding: 20px 80px;
+    border: 4px solid #FFEB3B; /* Sárga fizikai keret is */
+    border-radius: 100px; /* Ettől lesz ovális */
+    
+    /* Árnyék */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+
+    cursor: pointer;
+    position: relative;
+    z-index: 20;
+    transition: transform 0.2s;
+}
+
+#btnBingo:hover {
+    transform: scale(1.05);
+    background-color: #b71c1c; /* Sötétebb piros hoverkor */
+}
+
+#btnBingo:active {
+    transform: scale(0.95);
+}
+
+/* NYERŐ FELUGRÓ ABLAK */
+.win-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.win-message-container {
+    position: relative;
+    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 400px;
+}
+
+/* A szöveg mögötti háttér (Most már ovális) */
+.comic-starburst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    
+    /* Piros háttér */
+    background-color: #D32F2F;
+    
+    /* Ovális forma */
+    border-radius: 50%;
+    border: 5px solid #bb0000; /* Sárga keret */
+    
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    
+    box-shadow: 0 0 30px rgba(211, 47, 47, 0.6);
+}
+
+/* A BINGÓ szöveg a felugró ablakon */
+.win-text {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 6rem;
+    
+    /* Fehér belső */
+    color: #FFFFFF;
+    
+    margin: 0;
+    
+    /* Sárga keret (stroke) és árnyék */
+    -webkit-text-stroke: 3px #f0cd05;
+    text-shadow: 4px 4px 0px #b71c1c;
+    
+    z-index: 2;
+}
+
+/* Az újrakezdés gomb 
+   FONTOS: position absolute, hogy ne tolja el a szöveget, amikor megjelenik 
+*/
+#btnRestart {
+    display: none;
+    
+    /* Abszolút pozíció a konténer aljához képest */
+    position: absolute;
+    bottom: 40px; 
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 15px 35px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #FFEB3B; /* Sárga gomb */
+    color: #D32F2F; /* Piros szöveg */
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+    z-index: 10;
+}
+
+#btnRestart:hover {
+    background-color: #ffee58;
+    transform: translateX(-50%) scale(1.05);
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
