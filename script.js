@@ -38,6 +38,7 @@ const teljesLista = [
     "valami gyanús", 
     "fáj a lelkemnek", 
     "bumm", 
+    "hell je",
     "xd"
 ];
 
@@ -194,4 +195,5 @@ function gyozelem() {
 }
 
 // Indulás
+
 ujJatek();
